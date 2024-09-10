@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+th,
+td {
+  @apply border-2 p-2 bg-gray-700;
+}
