@@ -35,7 +35,7 @@ export default function RootLayout({
           </h1>
         </div>
         <SharedLayout />
-        <main className="ml-[15rem] mt-28">{children}</main>
+        <main className="ml-[15rem] mt-20">{children}</main>
         {/* <footer className="bg-gray-800 text-gray-300 text-center p-4">
           <p>&copy; 2024 Online Library</p>
         </footer> */}

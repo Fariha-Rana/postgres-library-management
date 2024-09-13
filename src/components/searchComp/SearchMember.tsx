@@ -1,14 +1,11 @@
 import Table from "@/components/Table";
-import dbConnection from "@/database/connection";
 import { Members } from "@/database/utils/type";
 
-const MembersPage = async () => {
-  const res = await dbConnection.query(
-    "SELECT * FROM members order by member_id desc"
-  );
-  const members = res?.rows;
-  if (!members) return <p>No Members found</p>;
+interface Props {
+  members: Members[];
+}
 
+const SearchMembers: React.FC<Props> = ({ members }) => {
   return (
     <>
       <Table<Members>
@@ -37,4 +34,4 @@ const MembersPage = async () => {
   );
 };
 
-export default MembersPage;
+export default SearchMembers;

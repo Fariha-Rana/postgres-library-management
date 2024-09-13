@@ -6,3 +6,15 @@ th,
 td {
   @apply border-2 p-2 bg-gray-700;
 }
+
+h2 {
+  @apply text-center text-2xl font-bold my-3 text-gray-800;
+}
+
+.formDiv {
+  @apply flex gap-2 justify-around;
+}
+
+.submitBtn {
+  @apply px-4 py-3 bg-gray-800 hover:opacity-70 text-white w-max text-sm rounded-md text-nowrap;
+}

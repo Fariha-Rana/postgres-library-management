@@ -21,6 +21,7 @@ async function Page() {
   const popularBooks = await asyncHandler(() =>
     db.query(mostPopularBooksQuery)
   );
+
   return (
     <div className="bg-white shadow-md rounded-lg p-4">
       <Table<PopularBooks>

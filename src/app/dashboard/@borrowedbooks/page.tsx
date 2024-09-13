@@ -17,15 +17,12 @@ const borrowedBooksQuery = `
     b.title,
     m.first_name || ' ' || m.last_name AS member_name,
     t.borrow_date,
-    CASE 
-      WHEN t.return_date IS NULL THEN 'Not Returned'
-      ELSE t.return_date::text
-    END AS return_date,
     t.due_date
   FROM Transactions t
   JOIN Books b ON t.book_id = b.book_id
   JOIN Members m ON t.member_id = m.member_id
-  WHERE t.return_date IS NULL OR t.return_date > t.due_date;
+  WHERE t.return_date IS NULL OR t.return_date > t.due_date
+  ORDER BY t.transaction_id DESC;
 `;
 
 async function Page() {
@@ -35,24 +32,20 @@ async function Page() {
       <Table<BorrowedBooks>
         heading="Books Currently Borrowed"
         tableHeadings={[
+          "Tx Id",
           "Title",
           "Member Name",
           "Borrow Date",
           "Due Date",
-          "Return Date",
         ]}
         tableBodyData={booksBorrowed}
         renderRow={(book) => (
           <>
+            <td>{book.transaction_id}</td>
             <td>{book.title}</td>
             <td>{book.member_name}</td>
             <td>{new Date(book.borrow_date).toDateString()}</td>
             <td>{new Date(book.due_date).toDateString()}</td>
-            <td>
-              {book.return_date
-                ? new Date(book.return_date).toDateString()
-                : "Not Returned"}
-            </td>
           </>
         )}
       />

@@ -1,19 +1,14 @@
 import Table from "@/components/Table";
 import dbConnection from "@/database/connection";
-
-interface Authors {
-  author_id: number;
-  first_name: string;
-  last_name: string;
-  birthdate: string;
-  nationality: string;
-}
+import { Authors } from "@/database/utils/type";
 
 const AuthorsPage = async () => {
-  const res = await dbConnection.query("SELECT * FROM authors");
+  const res = await dbConnection.query(
+    "SELECT * FROM authors order by author_id desc"
+  );
   const authors = res?.rows;
-  console.log(authors);
   if (!authors) return <p>No Authors found</p>;
+
   return (
     <Table<Authors>
       heading="Authors List"

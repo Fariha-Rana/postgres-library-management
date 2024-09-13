@@ -25,7 +25,7 @@ function Table<T>({
           </tr>
         </thead>
         <tbody>
-          {tableBodyData.map((item, index) => (
+          {tableBodyData?.map((item, index) => (
             <tr key={index}>{renderRow(item)}</tr>
           ))}
         </tbody>

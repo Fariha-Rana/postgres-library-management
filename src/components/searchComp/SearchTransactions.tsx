@@ -1,13 +1,10 @@
 import Table from "@/components/Table";
-import dbConnection from "@/database/connection";
 import { Transactions } from "@/database/utils/type";
 
-const TransactionsPage = async () => {
-  const res = await dbConnection.query(
-    "SELECT * FROM transactions order by transaction_id desc"
-  );
-  const transactions = res?.rows;
-
+interface Props {
+  transactions: Transactions[];
+}
+const TransactionsPage: React.FC<Props> = ({ transactions }) => {
   return (
     <>
       <Table<Transactions>
