@@ -2,6 +2,7 @@ import { updateMember } from "@/database/actions/update.actions";
 import dbConnection from "@/database/connection";
 import LabelandInput from "../formComp/Label-Input";
 import SubmitButton from "../formComp/SubmitButton";
+import ResponseMessage from "../ResponseMessage";
 
 export default async function UpdateMemberForm() {
   const _updateMemberWithId: (formData: FormData) => Promise<void> =
@@ -12,6 +13,9 @@ export default async function UpdateMemberForm() {
   );
   const Member = res.rows[0];
 
+  if (!Member) {
+    return <ResponseMessage message="Member not found" />;
+  }
   return (
     <>
       <h2 className="text-xl font-bold mb-4">Update Member</h2>
@@ -49,9 +53,7 @@ export default async function UpdateMemberForm() {
           id="registrationDate"
           type="date"
           name="registrationDate"
-          defaultValue={
-            new Date(Member.registration_date).toISOString().split("T")[0]
-          }
+          defaultValue={new Date(Member.registration_date).toDateString()}
         />
         <SubmitButton label="Update Member" />
       </form>

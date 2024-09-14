@@ -26,30 +26,30 @@ const borrowedBooksQuery = `
 `;
 
 async function Page() {
-  const booksBorrowed = await asyncHandler(() => db.query(borrowedBooksQuery));
+  const res = await asyncHandler(() => db.query(borrowedBooksQuery));
+  const booksBorrowed = res?.rows;
+
   return (
-    <div className="bg-white shadow-md rounded-lg p-4">
-      <Table<BorrowedBooks>
-        heading="Books Currently Borrowed"
-        tableHeadings={[
-          "Tx Id",
-          "Title",
-          "Member Name",
-          "Borrow Date",
-          "Due Date",
-        ]}
-        tableBodyData={booksBorrowed}
-        renderRow={(book) => (
-          <>
-            <td>{book.transaction_id}</td>
-            <td>{book.title}</td>
-            <td>{book.member_name}</td>
-            <td>{new Date(book.borrow_date).toDateString()}</td>
-            <td>{new Date(book.due_date).toDateString()}</td>
-          </>
-        )}
-      />
-    </div>
+    <Table<BorrowedBooks>
+      heading="Books Currently Borrowed"
+      tableHeadings={[
+        "Tx Id",
+        "Title",
+        "Member Name",
+        "Borrow Date",
+        "Due Date",
+      ]}
+      tableBodyData={booksBorrowed}
+      renderRow={(book) => (
+        <>
+          <td>{book.transaction_id}</td>
+          <td>{book.title}</td>
+          <td>{book.member_name}</td>
+          <td>{new Date(book.borrow_date).toDateString()}</td>
+          <td>{new Date(book.due_date).toDateString()}</td>
+        </>
+      )}
+    />
   );
 }
 

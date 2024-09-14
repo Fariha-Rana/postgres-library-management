@@ -4,6 +4,7 @@ import Table from "../Table";
 interface Props {
   authors: Authors[];
 }
+
 const Searchauthors: React.FC<Props> = ({ authors }) => {
   return (
     <Table<Authors>

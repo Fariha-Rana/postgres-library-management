@@ -17,7 +17,7 @@ function Table<T>({
       <table className="text-gray-200 w-full ">
         <thead>
           <tr>
-            {tableHeadings.map((heading: string, i: number) => (
+            {tableHeadings?.map((heading: string, i: number) => (
               <th key={i} className="bg-gray-800">
                 {heading}
               </th>

@@ -2,6 +2,7 @@ import { updateTransaction } from "@/database/actions/update.actions";
 import dbConnection from "@/database/connection";
 import LabelandInput from "../formComp/Label-Input";
 import SubmitButton from "../formComp/SubmitButton";
+import ResponseMessage from "../ResponseMessage";
 
 export default async function UpdateTransactionForm() {
   const _updateTransactionWithId: (formData: FormData) => Promise<void> =
@@ -12,6 +13,9 @@ export default async function UpdateTransactionForm() {
   );
   const Transaction = res.rows[0];
 
+  if (!Transaction) {
+    return <ResponseMessage message="Transaction not found" />;
+  }
   return (
     <>
       <h2 className="text-xl font-bold mb-4">Update Transaction</h2>
@@ -56,9 +60,7 @@ export default async function UpdateTransactionForm() {
           id="dueDate"
           type="text"
           name="dueDate"
-          defaultValue={
-            new Date(Transaction.due_date).toISOString().split("T")[0]
-          }
+          defaultValue={new Date(Transaction.due_date).toDateString()}
         />
         <SubmitButton label="Update Transaction" />
       </form>

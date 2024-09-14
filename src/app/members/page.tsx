@@ -1,3 +1,4 @@
+import ResponseMessage from "@/components/ResponseMessage";
 import Table from "@/components/Table";
 import dbConnection from "@/database/connection";
 import { Members } from "@/database/utils/type";
@@ -6,8 +7,9 @@ const MembersPage = async () => {
   const res = await dbConnection.query(
     "SELECT * FROM members order by member_id desc"
   );
-  const members = res?.rows;
-  if (!members) return <p>No Members found</p>;
+  const members = res?.rows || [];
+  if (members.length === 0)
+    return <ResponseMessage message="No Members Found" />;
 
   return (
     <>

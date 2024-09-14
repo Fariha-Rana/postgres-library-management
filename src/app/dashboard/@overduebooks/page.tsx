@@ -13,18 +13,8 @@ interface OverdueBooks {
 }
 
 export default async function Page() {
-  const overdueBooks = await asyncHandler(() =>
-    db.query(membersWithOverdueBooksQuery)
-  );
-
-  if (overdueBooks.length === 0) {
-    return (
-      <div className="bg-white shadow-md rounded-lg p-4">
-        <h1 className="text-2xl font-bold mb-4">Overdue Books</h1>
-        <p>No overdue books found.</p>
-      </div>
-    );
-  }
+  const res = await asyncHandler(() => db.query(membersWithOverdueBooksQuery));
+  const overdueBooks = res?.rows;
   return (
     <div className="bg-white shadow-md rounded-lg p-4">
       <Table<OverdueBooks>

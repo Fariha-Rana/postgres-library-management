@@ -1,17 +1,14 @@
 "use server";
 import dbConnection from "@/database/connection";
+import asyncHandler from "../utils/asyncHandler";
 
 export async function searchQueryFromDatabase(
   table_name: string,
   searchText: string
 ) {
-  console.log("Searching for books in server actions:", searchText);
-  try {
-    const text = `SELECT * FROM search_${table_name}($1)`;
-    const result = await dbConnection.query(text, [searchText]);
-    return result.rows;
-  } catch (error) {
-    console.error("Error Searching books", error);
-    return [];
-  }
+  return await asyncHandler(() => {
+    return dbConnection.query(`SELECT * FROM search_${table_name}($1);`, [
+      searchText,
+    ]);
+  });
 }

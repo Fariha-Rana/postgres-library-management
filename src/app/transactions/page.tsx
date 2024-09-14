@@ -1,3 +1,4 @@
+import ResponseMessage from "@/components/ResponseMessage";
 import Table from "@/components/Table";
 import dbConnection from "@/database/connection";
 import { Transactions } from "@/database/utils/type";
@@ -6,8 +7,9 @@ const TransactionsPage = async () => {
   const res = await dbConnection.query(
     "SELECT * FROM transactions order by transaction_id desc"
   );
-  const transactions = res?.rows;
-
+  const transactions = res?.rows || [];
+  if (transactions.length === 0)
+    return <ResponseMessage message="No Transactions Found" />;
   return (
     <>
       <Table<Transactions>

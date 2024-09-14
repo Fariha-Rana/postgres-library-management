@@ -18,9 +18,8 @@ const mostPopularBooksQuery = `
       ORDER BY borrow_count DESC;`;
 
 async function Page() {
-  const popularBooks = await asyncHandler(() =>
-    db.query(mostPopularBooksQuery)
-  );
+  const res = await asyncHandler(() => db.query(mostPopularBooksQuery));
+  const popularBooks = res?.rows;
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4">

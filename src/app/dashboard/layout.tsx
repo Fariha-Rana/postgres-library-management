@@ -1,5 +1,4 @@
 export default function DashboardLayout({
-  children,
   borrowedbooks,
   popularbooks,
   overduebooks,
@@ -10,8 +9,7 @@ export default function DashboardLayout({
   overduebooks: React.ReactNode;
 }>) {
   return (
-    <section>
-      {children}
+    <section className="mt-8">
       {borrowedbooks}
       {popularbooks}
       {overduebooks}

@@ -1,12 +1,17 @@
--- TO dO
--- 1. create a search function
--- 2. give ids to books, authors, members forms
 
 --  generate unique ids for authors
 BEGIN;
 SELECT next_id INTO new_id FROM ID_Manager WHERE table_name = 'Authors';
 UPDATE ID_Manager SET next_id = next_id + 1 WHERE table_name = 'Authors';
 COMMIT;
+
+-- delete example for related tables
+ALTER TABLE books
+DROP CONSTRAINT books_author_id_fkey,
+ADD CONSTRAINT books_author_id_fkey
+    FOREIGN KEY (author_id) REFERENCES authors(author_id)
+    ON DELETE CASCADE;
+
 
 -- Use new_id for insertion
 -- INSERT INTO Authors (author_id, first_name, last_name, birthdate, nationality)
@@ -22,12 +27,14 @@ CREATE OR REPLACE FUNCTION search_books(
     genre VARCHAR(100),
     publish_date DATE,
     isbn VARCHAR(20),
-    available_copies INT
+    available_copies INT,
+    author_name VARCHAR(100)
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT b.book_id, b.title, b.author_id, b.genre, b.publish_date, b.isbn, b.available_copies
+    SELECT b.book_id, b.title, b.author_id, b.genre, b.publish_date, b.isbn, b.available_copies, (a.first_name || ' ' || a.last_name)::VARCHAR(100) AS author_name
     FROM Books b
+    JOIN Authors a ON b.author_id = a.author_id
     WHERE
         b.title ILIKE '%' || search_text || '%' OR
         b.isbn ILIKE '%' || search_text || '%' OR

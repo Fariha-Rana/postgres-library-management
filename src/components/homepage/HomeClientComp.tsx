@@ -2,6 +2,7 @@
 import { ReactNode, useState } from "react";
 import TabButton from "@/components/homepage/TabButton";
 import ActiveTabButtons from "@/components/homepage/ActiveTabButtons";
+import DeleteForm from "@/components/deleteForm/DeleteForm";
 
 const HomeClientComponent = ({
   addBookForm,
@@ -52,7 +53,6 @@ const HomeClientComponent = ({
       updateComp: updateTransactionForm,
     },
   ];
-
   const openModal = (action: string) => {
     setAddModalOpen(true);
     setModalActionType(action);
@@ -85,11 +85,13 @@ const HomeClientComponent = ({
                       X
                     </button>
                   </div>
-                  {modalActionType === "Add"
-                    ? tab.addComp
-                    : modalActionType === "Update"
-                    ? tab.updateComp
-                    : null}
+                  {modalActionType === "Add" ? (
+                    tab.addComp
+                  ) : modalActionType === "Update" ? (
+                    tab.updateComp
+                  ) : modalActionType === "Delete" ? (
+                    <DeleteForm table_name={tab.label} IdName={tab.value} />
+                  ) : null}
                 </div>
               </div>
             )}

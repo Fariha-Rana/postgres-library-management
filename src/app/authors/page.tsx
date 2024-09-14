@@ -1,3 +1,4 @@
+import ResponseMessage from "@/components/ResponseMessage";
 import Table from "@/components/Table";
 import dbConnection from "@/database/connection";
 import { Authors } from "@/database/utils/type";
@@ -6,8 +7,10 @@ const AuthorsPage = async () => {
   const res = await dbConnection.query(
     "SELECT * FROM authors order by author_id desc"
   );
-  const authors = res?.rows;
-  if (!authors) return <p>No Authors found</p>;
+
+  const authors = res?.rows || [];
+  if (authors.length === 0)
+    return <ResponseMessage message="No Authors Found" />;
 
   return (
     <Table<Authors>

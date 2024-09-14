@@ -1,3 +1,4 @@
+import ResponseMessage from "@/components/ResponseMessage";
 import Table from "@/components/Table";
 import dbConnection from "@/database/connection";
 import { Books } from "@/database/utils/type";
@@ -6,8 +7,8 @@ const BooksPage = async () => {
   const res = await dbConnection.query(
     `SELECT b.book_id, b.title, b.genre, b.publish_date, b.isbn,b.available_copies, a.first_name || ' ' || a.last_name as author_name FROM Books b JOIN Authors a ON b.author_id = a.author_id order by book_id desc;`
   );
-  const books = res?.rows;
-  if (!books) return <p>No books found</p>;
+  const books = res?.rows || [];
+  if (books.length === 0) return <ResponseMessage message="No Books Found" />;
 
   return (
     <Table<Books>

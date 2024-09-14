@@ -2,6 +2,7 @@ import { updateBook } from "@/database/actions/update.actions";
 import dbConnection from "@/database/connection";
 import LabelandInput from "../formComp/Label-Input";
 import SubmitButton from "../formComp/SubmitButton";
+import ResponseMessage from "../ResponseMessage";
 
 export default async function UpdateBookForm() {
   const _updateBookWithId: (formData: FormData) => Promise<void> =
@@ -12,6 +13,9 @@ export default async function UpdateBookForm() {
   );
 
   const book = res.rows[0];
+  if (!book) {
+    return <ResponseMessage message="Book not found" />;
+  }
 
   return (
     <>
@@ -43,7 +47,7 @@ export default async function UpdateBookForm() {
           id="publishDate"
           type="text"
           name="publishDate"
-          defaultValue={new Date(book.publish_date).toISOString().split("T")[0]}
+          defaultValue={new Date(book.publish_date).toDateString()}
         />
         <LabelandInput
           label="ISBN Code"

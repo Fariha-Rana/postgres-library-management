@@ -2,6 +2,7 @@ import { updateAuthor } from "@/database/actions/update.actions";
 import dbConnection from "@/database/connection";
 import LabelandInput from "../formComp/Label-Input";
 import SubmitButton from "../formComp/SubmitButton";
+import ResponseMessage from "../ResponseMessage";
 
 export default async function UpdateAuthorForm() {
   const _updateAuthorWithId: (formData: FormData) => Promise<void> =
@@ -10,7 +11,10 @@ export default async function UpdateAuthorForm() {
     "SELECT * FROM Authors WHERE author_id = $1",
     [40]
   );
-  const Author = res.rows[0];
+  const Author = res.rows[0] || [];
+  if (!Author) {
+    return <ResponseMessage message="Author not found" />;
+  }
 
   return (
     <>
@@ -42,7 +46,7 @@ export default async function UpdateAuthorForm() {
           id="birthdate"
           type="text"
           name="birthdate"
-          defaultValue={new Date(Author.birthdate).toISOString().split("T")[0]}
+          defaultValue={new Date(Author.birthdate).toDateString()}
         />
         <SubmitButton label="Update Author" />
       </form>
