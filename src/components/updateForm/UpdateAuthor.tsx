@@ -11,8 +11,8 @@ export default async function UpdateAuthorForm() {
     "SELECT * FROM Authors WHERE author_id = $1",
     [40]
   );
-  const Author = res.rows[0] || [];
-  if (!Author) {
+  const Author = res?.rows[0] || [];
+  if (Author.length === 0) {
     return <ResponseMessage message="Author not found" />;
   }
 
@@ -46,7 +46,9 @@ export default async function UpdateAuthorForm() {
           id="birthdate"
           type="text"
           name="birthdate"
-          defaultValue={new Date(Author.birthdate).toDateString()}
+          defaultValue={
+            Author.birthdate ? new Date(Author.birthdate).toDateString() : ""
+          }
         />
         <SubmitButton label="Update Author" />
       </form>

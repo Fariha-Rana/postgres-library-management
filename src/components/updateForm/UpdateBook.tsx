@@ -12,8 +12,8 @@ export default async function UpdateBookForm() {
     [1]
   );
 
-  const book = res.rows[0];
-  if (!book) {
+  const book = res?.rows[0] || [];
+  if (book.length === 0) {
     return <ResponseMessage message="Book not found" />;
   }
 

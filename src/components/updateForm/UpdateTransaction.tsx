@@ -11,9 +11,9 @@ export default async function UpdateTransactionForm() {
     "SELECT * FROM Transactions WHERE transaction_id = $1",
     [53]
   );
-  const Transaction = res.rows[0];
+  const Transaction = res?.rows[0] || [];
 
-  if (!Transaction) {
+  if (Transaction.length === 0) {
     return <ResponseMessage message="Transaction not found" />;
   }
   return (

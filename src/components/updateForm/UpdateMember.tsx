@@ -11,9 +11,9 @@ export default async function UpdateMemberForm() {
     "SELECT * FROM Members WHERE Member_id = $1",
     [26]
   );
-  const Member = res.rows[0];
+  const Member = res?.rows[0] || [];
 
-  if (!Member) {
+  if (Member.length === 0) {
     return <ResponseMessage message="Member not found" />;
   }
   return (
