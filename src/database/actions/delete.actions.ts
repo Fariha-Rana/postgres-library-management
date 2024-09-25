@@ -8,10 +8,14 @@ export async function deleteRow(
   formData: FormData
 ) {
   const { id } = Object.fromEntries(formData);
-  const res = await asyncHandler(() =>
+  const result = await asyncHandler(() =>
     dbConnection.query(`DELETE FROM ${table_name} WHERE ${IdName}_id = ($1);`, [
       id,
     ])
   );
-  console.log(res);
+  console.log(result);
+  if (result.errorMessage) return { errorMessage: result.errorMessage };
+  return {
+    successMessage: "Deleted successfully",
+  };
 }

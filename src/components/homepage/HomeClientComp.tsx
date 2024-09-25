@@ -3,21 +3,17 @@ import { ReactNode, useState } from "react";
 import TabButton from "@/components/homepage/TabButton";
 import ActiveTabButtons from "@/components/homepage/ActiveTabButtons";
 import DeleteForm from "@/components/deleteForm/DeleteForm";
+import AddAuthorForm from "@/components/addForm/addAuthorForm";
+import AddBookForm from "@/components/addForm/addBookForm";
+import AddMemberForm from "@/components/addForm/addMember";
+import AddTransactionForm from "@/components/addForm/addTransaction";
 
 const HomeClientComponent = ({
-  addBookForm,
-  addAuthorForm,
-  addMemberForm,
-  addTransactionForm,
   updateBookForm,
   updateAuthorForm,
   updateMemberForm,
   updateTransactionForm,
 }: {
-  addBookForm: ReactNode;
-  addAuthorForm: ReactNode;
-  addMemberForm: ReactNode;
-  addTransactionForm: ReactNode;
   updateBookForm: ReactNode;
   updateAuthorForm: ReactNode;
   updateMemberForm: ReactNode;
@@ -31,25 +27,25 @@ const HomeClientComponent = ({
     {
       label: "Books",
       value: "Book",
-      addComp: addBookForm,
+      addComp: <AddBookForm />,
       updateComp: updateBookForm,
     },
     {
       label: "Authors",
       value: "Author",
-      addComp: addAuthorForm,
+      addComp: <AddAuthorForm />,
       updateComp: updateAuthorForm,
     },
     {
       label: "Members",
       value: "Member",
-      addComp: addMemberForm,
+      addComp: <AddMemberForm />,
       updateComp: updateMemberForm,
     },
     {
       label: "Transactions",
       value: "Transaction",
-      addComp: addTransactionForm,
+      addComp: <AddTransactionForm />,
       updateComp: updateTransactionForm,
     },
   ];

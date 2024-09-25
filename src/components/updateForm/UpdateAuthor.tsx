@@ -11,6 +11,7 @@ export default async function UpdateAuthorForm() {
     "SELECT * FROM Authors WHERE author_id = $1",
     [40]
   );
+
   const Author = res?.rows[0] || [];
   if (Author.length === 0) {
     return <ResponseMessage message="Author not found" />;

@@ -1,8 +1,8 @@
 
 --  generate unique ids for authors
 BEGIN;
-SELECT next_id INTO new_id FROM ID_Manager WHERE table_name = 'Authors';
-UPDATE ID_Manager SET next_id = next_id + 1 WHERE table_name = 'Authors';
+SELECT next_id INTO new_id FROM ID_Manager WHERE table_name = 'todos';
+UPDATE ID_Manager SET next_id = next_id + 1 WHERE table_name = 'todos';
 COMMIT;
 
 -- delete example for related tables
